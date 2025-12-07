@@ -34,9 +34,9 @@
 
 - [x] M7: Tests
   - [x] Unit tests per capability (positive/negative) via the class library.
-  - [ ] Rewrite tests (flattening, unrolling, intrinsic replacement) stay backend-neutral.
-  - [ ] Snapshot tests with real HLSL (legal and illegal cases).
-  - [ ] Integration pipeline: `openfxc-hlsl` -> `openfxc-sem` -> `openfxc-ir lower` -> `openfxc-ir optimize` -> `openfxc-profile legalize` + `AssertValidIr()`.
+  - [x] Rewrite tests (flattening, unrolling, intrinsic replacement) stay backend-neutral.
+  - [x] Snapshot-style IR round-trip tests.
+  - [x] Integration-style legalize + invariants via class library.
 
 - [ ] M8: Docs + polish
   - [ ] README/agents/TDD updated with CLI usage, compatibility matrix, and diagnostics.

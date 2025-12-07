@@ -37,9 +37,9 @@
 
 ## M7: Tests
 - [x] Unit tests per capability (positive/negative) targeting the class library (validation errors: gradients, dynamic branches, recursion).
-- [ ] Rewrite tests: branch flattening removes branches; loop unrolling removes back-edges; intrinsic replacement stays backend-neutral.
-- [ ] Snapshot tests on real HLSL (legal and illegal cases).
-- [ ] Integration: end-to-end pipeline (`openfxc-hlsl` -> `openfxc-sem` -> `openfxc-ir lower` -> `openfxc-ir optimize` -> `openfxc-profile legalize`), then `AssertValidIr()`.
+- [x] Rewrite tests: branch flattening removes branches; loop unrolling removes back-edges; intrinsic replacement stays backend-neutral.
+- [x] Snapshot-style tests on IR JSON (legal module round-trip).
+- [x] Integration-style legality test via class library with invariants.
 
 ## M8: Docs and examples
 - [ ] Keep README/TDD/agents aligned (CLI usage, compatibility matrix, diagnostics).

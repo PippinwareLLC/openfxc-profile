@@ -6,6 +6,18 @@ namespace OpenFXC.Profile.Tests;
 public class LegalizationPipelineTests
 {
     [Fact]
+    public void Legal_Module_RemainsValid()
+    {
+        var module = TestModuleFactory.MakeLegalModule("ps_3_0");
+        var pipeline = new LegalizationPipeline();
+
+        var result = pipeline.Legalize(new LegalizeRequest(module));
+
+        Assert.False(result.Invalid);
+        Assert.DoesNotContain(result.Diagnostics, d => d.Severity == "Error");
+    }
+
+    [Fact]
     public void GradientOps_AreRejected_InSm2()
     {
         var module = TestModuleFactory.MakeSimpleModule(
@@ -54,8 +66,42 @@ public class LegalizationPipelineTests
     }
 }
 
-internal static class TestModuleFactory
+internal static partial class TestModuleFactory
 {
+    public static IrModule MakeLegalModule(string profile)
+    {
+        var value1 = new IrValue { Id = 1, Type = "float", Kind = "Temp" };
+        var value2 = new IrValue { Id = 2, Type = "float", Kind = "Temp" };
+
+        var block = new IrBlock
+        {
+            Id = "entry",
+            Instructions = new[]
+            {
+                new IrInstruction { Op = "Assign", Operands = new[] { value1.Id }, Result = value2.Id, Type = "float" },
+                new IrInstruction { Op = "Return", Operands = new[] { value2.Id }, Terminator = true }
+            }
+        };
+
+        var function = new IrFunction
+        {
+            Name = "main",
+            ReturnType = "float",
+            Parameters = Array.Empty<int>(),
+            Blocks = new[] { block }
+        };
+
+        return new IrModule
+        {
+            Profile = profile,
+            EntryPoint = new IrEntryPoint { Function = "main", Stage = "ps" },
+            Functions = new[] { function },
+            Values = new[] { value1, value2 },
+            Resources = Array.Empty<IrResource>(),
+            Diagnostics = Array.Empty<IrDiagnostic>()
+        };
+    }
+
     public static IrModule MakeSimpleModule(string profile, string stage, IReadOnlyList<IrInstruction> body, IReadOnlyList<IrValue> values)
     {
         var entryBlock = new IrBlock { Id = "entry", Instructions = body };
