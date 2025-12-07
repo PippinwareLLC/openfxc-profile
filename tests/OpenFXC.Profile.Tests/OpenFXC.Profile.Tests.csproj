@@ -21,6 +21,8 @@
   <ItemGroup>
     <ProjectReference Include="..\\..\\src\\OpenFXC.Profile.Core\\OpenFXC.Profile.Core.csproj" />
     <ProjectReference Include="..\\..\\openfxc-ir\\src\\OpenFXC.Ir.Core\\OpenFXC.Ir.Core.csproj" />
+    <ProjectReference Include="..\\..\\openfxc-ir\\openfxc-sem\\src\\OpenFXC.Sem.Core\\OpenFXC.Sem.Core.csproj" />
+    <ProjectReference Include="..\\..\\openfxc-ir\\openfxc-sem\\openfxc-hlsl\\src\\OpenFXC.Hlsl\\OpenFXC.Hlsl.csproj" />
   </ItemGroup>
 
 </Project>
