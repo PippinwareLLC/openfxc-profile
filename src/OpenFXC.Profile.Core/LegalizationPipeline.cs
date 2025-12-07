@@ -72,6 +72,12 @@ public sealed class LegalizationPipeline
             {
                 diagnostics.Add(IrDiagnostic.Error("Unsupported operations removed during legalization.", "legalize"));
             }
+
+            var invariantDiagnostics = IrInvariants.Validate(module);
+            if (invariantDiagnostics.Count > 0)
+            {
+                diagnostics.AddRange(invariantDiagnostics);
+            }
         }
 
         module = module with { Diagnostics = diagnostics };

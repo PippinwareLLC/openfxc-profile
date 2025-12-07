@@ -28,9 +28,9 @@
   - [x] MRT/UAV use below profile; unsupported texture dimensions; SV misuse rejected with clear diagnostics.
   - [x] `invalid: true` flag set when legalization cannot succeed.
 
-- [ ] M6: IR invariants
-  - [ ] `AssertValidIr()` (or equivalent) runs after legalization.
-  - [ ] SSA-like values, typed ops, valid masks/refs, well-terminated blocks preserved.
+- [x] M6: IR invariants
+  - [x] `AssertValidIr()` (or equivalent) runs after legalization.
+  - [x] SSA-like values, typed ops, valid masks/refs, well-terminated blocks preserved.
 
 - [ ] M7: Tests
   - [ ] Unit tests per capability (positive/negative) via the class library.

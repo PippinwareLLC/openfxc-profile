@@ -31,9 +31,9 @@
 - [x] Emit clear diagnostics and set `invalid: true` when applicable.
 
 ## M6: IR invariants
-- [ ] Run `AssertValidIr()` after legalization; maintain SSA-like definitions and typed ops.
-- [ ] Ensure blocks remain well-terminated; masks and references stay valid.
-- [ ] Avoid introducing DX9-specific constructs.
+- [x] Run `AssertValidIr()` after legalization; maintain SSA-like definitions and typed ops.
+- [x] Ensure blocks remain well-terminated; masks and references stay valid.
+- [x] Avoid introducing DX9-specific constructs.
 
 ## M7: Tests
 - [ ] Unit tests per capability (positive/negative) targeting the class library.
