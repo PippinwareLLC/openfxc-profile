@@ -1,8 +1,8 @@
 # TODO - openfxc-profile (legalize)
 
 ## M0: CLI skeleton
-- [ ] Scaffold `openfxc-profile legalize` command (stdin/file input, `--profile` override, exit codes 0/1).
-- [ ] Wire JSON parsing, diagnostics passthrough, and basic logging.
+- [x] Scaffold `openfxc-profile legalize` command (stdin/file input, `--profile` override, exit codes 0/1).
+- [x] Wire JSON parsing, diagnostics passthrough, and basic logging.
 
 ## M1: Class library API
 - [ ] Implement legalizer as a class library surface; keep CLI as a thin wrapper.

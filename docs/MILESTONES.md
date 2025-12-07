@@ -1,8 +1,8 @@
 # Milestones - openfxc-profile (legalize)
 
-- [ ] M0: CLI skeleton
-  - [ ] `openfxc-profile legalize` verb, stdin/file input, profile override, exit codes.
-  - [ ] JSON parsing and diagnostics passthrough scaffold.
+- [x] M0: CLI skeleton
+  - [x] `openfxc-profile legalize` verb, stdin/file input, profile override, exit codes.
+  - [x] JSON parsing and diagnostics passthrough scaffold.
 
 - [ ] M1: Class library surface
   - [ ] Legalizer implemented as library; CLI wraps it.
