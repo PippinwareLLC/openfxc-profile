@@ -21,6 +21,13 @@ openfxc-dxbc emit
 This stage **does not** introduce DX9-specific instructions or registers.
 It only ensures the IR is **valid for the target shader model** (SM2, SM3, SM4, SM5) before backend lowering.
 
+### Architecture & Packaging
+
+* Core functionality resides in a class library; the CLI is a thin wrapper over that library.
+* Unit tests exercise the class library directly (not the CLI).
+* `openfxc-profile` should consume the submodule class libraries (`openfxc-ir`, `openfxc-sem`, `openfxc-hlsl`) directly where needed.
+* Follow the structural patterns used in `openfxc-ir` to keep repository organization consistent.
+
 ---
 
 ## 1. Goals of `openfxc-profile`
