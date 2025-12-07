@@ -2,3 +2,5 @@ src/openfxc-profile/bin/**
 src/openfxc-profile/obj/**
 src/OpenFXC.Profile.Core/bin/**
 src/OpenFXC.Profile.Core/obj/**
+tests/OpenFXC.Profile.Tests/bin/**
+tests/OpenFXC.Profile.Tests/obj/**

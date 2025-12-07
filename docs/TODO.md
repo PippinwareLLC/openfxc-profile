@@ -36,7 +36,7 @@
 - [x] Avoid introducing DX9-specific constructs.
 
 ## M7: Tests
-- [ ] Unit tests per capability (positive/negative) targeting the class library.
+- [x] Unit tests per capability (positive/negative) targeting the class library (validation errors: gradients, dynamic branches, recursion).
 - [ ] Rewrite tests: branch flattening removes branches; loop unrolling removes back-edges; intrinsic replacement stays backend-neutral.
 - [ ] Snapshot tests on real HLSL (legal and illegal cases).
 - [ ] Integration: end-to-end pipeline (`openfxc-hlsl` -> `openfxc-sem` -> `openfxc-ir lower` -> `openfxc-ir optimize` -> `openfxc-profile legalize`), then `AssertValidIr()`.

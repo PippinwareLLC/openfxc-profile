@@ -32,8 +32,8 @@
   - [x] `AssertValidIr()` (or equivalent) runs after legalization.
   - [x] SSA-like values, typed ops, valid masks/refs, well-terminated blocks preserved.
 
-- [ ] M7: Tests
-  - [ ] Unit tests per capability (positive/negative) via the class library.
+- [x] M7: Tests
+  - [x] Unit tests per capability (positive/negative) via the class library.
   - [ ] Rewrite tests (flattening, unrolling, intrinsic replacement) stay backend-neutral.
   - [ ] Snapshot tests with real HLSL (legal and illegal cases).
   - [ ] Integration pipeline: `openfxc-hlsl` -> `openfxc-sem` -> `openfxc-ir lower` -> `openfxc-ir optimize` -> `openfxc-profile legalize` + `AssertValidIr()`.
