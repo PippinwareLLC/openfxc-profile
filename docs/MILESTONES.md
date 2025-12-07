@@ -23,10 +23,10 @@
   - [x] Intrinsic replacements (e.g., normalize -> dot + rsq + mul) using backend-neutral ops.
   - [x] Unsupported op splitting/removal without DX9 specifics.
 
-- [ ] M5: Rejection paths + diagnostics
-  - [ ] Dynamic branching/loops in SM2 rejected; recursion rejected.
-  - [ ] MRT/UAV use below profile; unsupported texture dimensions; SV misuse rejected with clear diagnostics.
-  - [ ] `invalid: true` flag set when legalization cannot succeed.
+- [x] M5: Rejection paths + diagnostics
+  - [x] Dynamic branching/loops in SM2 rejected; recursion rejected.
+  - [x] MRT/UAV use below profile; unsupported texture dimensions; SV misuse rejected with clear diagnostics.
+  - [x] `invalid: true` flag set when legalization cannot succeed.
 
 - [ ] M6: IR invariants
   - [ ] `AssertValidIr()` (or equivalent) runs after legalization.

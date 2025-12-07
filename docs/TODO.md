@@ -26,9 +26,9 @@
 - [x] Split/remove unsupported ops while preserving IR invariants.
 
 ## M5: Rejection paths
-- [ ] Dynamic branching/loops in SM2 rejection; recursion rejection.
-- [ ] MRT/UAV use below profile; unsupported texture dimensions; SV misuse in SM2.
-- [ ] Emit clear diagnostics and set `invalid: true` when applicable.
+- [x] Dynamic branching/loops in SM2 rejection; recursion rejection.
+- [x] MRT/UAV use below profile; unsupported texture dimensions; SV misuse in SM2.
+- [x] Emit clear diagnostics and set `invalid: true` when applicable.
 
 ## M6: IR invariants
 - [ ] Run `AssertValidIr()` after legalization; maintain SSA-like definitions and typed ops.

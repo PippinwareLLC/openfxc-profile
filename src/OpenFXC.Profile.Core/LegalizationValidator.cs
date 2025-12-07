@@ -16,6 +16,8 @@ internal static class LegalizationValidator
         ValidateUavsAndMrt(module, profile, diagnostics);
         ValidateResourceDimensions(module, profile, diagnostics);
         ValidateUnsupportedIntrinsics(module, profile, diagnostics);
+        ValidateControlFlow(module, profile, diagnostics, stage);
+        ValidateRecursion(module, diagnostics);
     }
 
     private static void ValidateInstructionAndTemps(IrModule module, CapabilityProfile profile, IList<IrDiagnostic> diagnostics)
@@ -174,6 +176,63 @@ internal static class LegalizationValidator
             {
                 diagnostics.Add(IrDiagnostic.Error(
                     $"Unsupported intrinsic or opcode '{op}' encountered for profile {profile.Band}.",
+                    "legalize"));
+            }
+        }
+    }
+
+    private static void ValidateControlFlow(IrModule module, CapabilityProfile profile, IList<IrDiagnostic> diagnostics, string stage)
+    {
+        var instructions = module.Functions?
+            .SelectMany(f => f.Blocks ?? Array.Empty<IrBlock>())
+            .SelectMany(b => b.Instructions ?? Array.Empty<IrInstruction>()) ?? Array.Empty<IrInstruction>();
+
+        if (!profile.DynamicBranching)
+        {
+            var hasBranch = instructions.Any(instr =>
+                (instr.Op ?? string.Empty).IndexOf("branch", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                string.Equals(instr.Op, "BranchCond", StringComparison.OrdinalIgnoreCase));
+
+            if (hasBranch)
+            {
+                diagnostics.Add(IrDiagnostic.Error(
+                    $"Dynamic branching is not supported in profile {profile.Band} (stage: {stage}).",
+                    "legalize"));
+            }
+        }
+
+        if (!profile.Loops)
+        {
+            var hasLoop = instructions.Any(instr =>
+                (instr.Op ?? string.Empty).IndexOf("loop", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                (instr.Op ?? string.Empty).IndexOf("while", StringComparison.OrdinalIgnoreCase) >= 0);
+
+            if (hasLoop)
+            {
+                diagnostics.Add(IrDiagnostic.Error(
+                    $"Loops are not supported in profile {profile.Band} (stage: {stage}).",
+                    "legalize"));
+            }
+        }
+    }
+
+    private static void ValidateRecursion(IrModule module, IList<IrDiagnostic> diagnostics)
+    {
+        foreach (var function in module.Functions ?? Array.Empty<IrFunction>())
+        {
+            var instructions = function.Blocks?
+                .SelectMany(b => b.Instructions ?? Array.Empty<IrInstruction>()) ?? Array.Empty<IrInstruction>();
+
+            var selfCall = instructions.Any(instr =>
+                string.Equals(instr.Op, "Call", StringComparison.OrdinalIgnoreCase) &&
+                (string.Equals(instr.Tag, function.Name, StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(instr.Type, function.Name, StringComparison.OrdinalIgnoreCase) ||
+                 (instr.Tag ?? string.Empty).IndexOf("recursive", StringComparison.OrdinalIgnoreCase) >= 0));
+
+            if (selfCall)
+            {
+                diagnostics.Add(IrDiagnostic.Error(
+                    $"Recursion is not supported: function '{function.Name}' appears to call itself.",
                     "legalize"));
             }
         }
