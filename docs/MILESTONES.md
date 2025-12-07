@@ -13,9 +13,9 @@
   - [x] Canonical SM2-SM5 capability table encoded.
   - [x] Shared access for validation, rewrites, and tests.
 
-- [ ] M3: Validation rules
-  - [ ] Instruction/temp limits; MRT/texture/gradient/SV restrictions per profile.
-  - [ ] Unsupported intrinsic/resource dimension/UAV bans with diagnostics.
+- [x] M3: Validation rules
+  - [x] Instruction/temp limits; MRT/texture/gradient/SV restrictions per profile.
+  - [x] Unsupported intrinsic/resource dimension/UAV bans with diagnostics.
 
 - [ ] M4: Rewriting for legality
   - [ ] Branch flattening for `ps_2_0`.

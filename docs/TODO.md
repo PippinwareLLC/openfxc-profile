@@ -14,10 +14,10 @@
 - [x] Drive validation and rewrite decisions from that table; keep tests in sync.
 
 ## M3: Validation rules
-- [ ] Instruction slot and temp register limits per profile.
-- [ ] MRT allowance, vertex texture fetch rules, SV semantics restrictions.
-- [ ] Gradient op bans in SM2; unsupported intrinsic detection.
-- [ ] Resource dimension and UAV bans below allowed profiles.
+- [x] Instruction slot and temp register limits per profile.
+- [x] MRT allowance, vertex texture fetch rules, SV semantics restrictions.
+- [x] Gradient op bans in SM2; unsupported intrinsic detection.
+- [x] Resource dimension and UAV bans below allowed profiles.
 
 ## M4: Rewriting for legality
 - [ ] Branch flattening for `ps_2_0`.

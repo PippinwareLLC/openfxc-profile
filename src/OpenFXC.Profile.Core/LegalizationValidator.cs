@@ -14,6 +14,8 @@ internal static class LegalizationValidator
         ValidateSvSemantics(module, profile, diagnostics);
         ValidateTextureSampling(module, profile, diagnostics, stage);
         ValidateUavsAndMrt(module, profile, diagnostics);
+        ValidateResourceDimensions(module, profile, diagnostics);
+        ValidateUnsupportedIntrinsics(module, profile, diagnostics);
     }
 
     private static void ValidateInstructionAndTemps(IrModule module, CapabilityProfile profile, IList<IrDiagnostic> diagnostics)
@@ -120,6 +122,58 @@ internal static class LegalizationValidator
             {
                 diagnostics.Add(IrDiagnostic.Error(
                     $"Multiple render targets are not supported in profile {profile.Band}.",
+                    "legalize"));
+            }
+        }
+    }
+
+    private static void ValidateResourceDimensions(IrModule module, CapabilityProfile profile, IList<IrDiagnostic> diagnostics)
+    {
+        var resources = module.Resources ?? Array.Empty<IrResource>();
+        foreach (var resource in resources)
+        {
+            var type = resource.Type ?? string.Empty;
+            var lowerType = type.ToLowerInvariant();
+
+            var isArray = lowerType.Contains("array", StringComparison.OrdinalIgnoreCase);
+            var is3d = lowerType.Contains("3d", StringComparison.OrdinalIgnoreCase);
+
+            if (profile.Band == "sm2" && (isArray || is3d))
+            {
+                diagnostics.Add(IrDiagnostic.Error(
+                    $"Resource '{resource.Name}' uses unsupported dimension '{type}' in profile {profile.Band}.",
+                    "legalize"));
+            }
+
+            if (profile.Band == "sm3" && isArray)
+            {
+                diagnostics.Add(IrDiagnostic.Error(
+                    $"Resource '{resource.Name}' uses array textures, which are unsupported in profile {profile.Band}.",
+                    "legalize"));
+            }
+        }
+    }
+
+    private static void ValidateUnsupportedIntrinsics(IrModule module, CapabilityProfile profile, IList<IrDiagnostic> diagnostics)
+    {
+        var instructions = module.Functions?
+            .SelectMany(f => f.Blocks ?? Array.Empty<IrBlock>())
+            .SelectMany(b => b.Instructions ?? Array.Empty<IrInstruction>()) ?? Array.Empty<IrInstruction>();
+
+        foreach (var instr in instructions)
+        {
+            var op = instr.Op ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(op))
+            {
+                diagnostics.Add(IrDiagnostic.Error("Instruction with missing op encountered.", "legalize"));
+                continue;
+            }
+
+            if (op.Contains("unsupported", StringComparison.OrdinalIgnoreCase) ||
+                op.Contains("unknown", StringComparison.OrdinalIgnoreCase))
+            {
+                diagnostics.Add(IrDiagnostic.Error(
+                    $"Unsupported intrinsic or opcode '{op}' encountered for profile {profile.Band}.",
                     "legalize"));
             }
         }
