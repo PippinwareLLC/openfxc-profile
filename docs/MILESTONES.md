@@ -4,10 +4,10 @@
   - [x] `openfxc-profile legalize` verb, stdin/file input, profile override, exit codes.
   - [x] JSON parsing and diagnostics passthrough scaffold.
 
-- [ ] M1: Class library surface
-  - [ ] Legalizer implemented as library; CLI wraps it.
-  - [ ] Request/response types (profile, diagnostics, invalid flag).
-  - [ ] Hooks to use submodule class libraries (`openfxc-ir`, `openfxc-sem`, `openfxc-hlsl`) directly.
+- [x] M1: Class library surface
+  - [x] Legalizer implemented as library; CLI wraps it.
+  - [x] Request/response types (profile, diagnostics, invalid flag).
+  - [x] Hooks to use submodule class libraries (`openfxc-ir`, `openfxc-sem`, `openfxc-hlsl`) directly.
 
 - [ ] M2: Capability table codified
   - [ ] Canonical SM2-SM5 capability table encoded.

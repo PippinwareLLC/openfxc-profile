@@ -5,27 +5,35 @@ namespace OpenFXC.Profile;
 
 public sealed class LegalizeRequest
 {
-    public LegalizeRequest(IrModule module, string? profileOverride)
+    public LegalizeRequest(IrModule module, string? profileOverride = null)
     {
         Module = module ?? throw new ArgumentNullException(nameof(module));
         ProfileOverride = string.IsNullOrWhiteSpace(profileOverride) ? null : profileOverride;
     }
 
+    /// <summary>IR module produced by openfxc-ir optimize.</summary>
     public IrModule Module { get; }
 
+    /// <summary>Optional profile override (e.g., ps_2_0, vs_3_0).</summary>
     public string? ProfileOverride { get; }
 }
 
 public sealed class LegalizeResult
 {
-    public LegalizeResult(IrModule module, bool invalid = false)
+    public LegalizeResult(IrModule module, IReadOnlyList<IrDiagnostic> diagnostics, bool invalid)
     {
         Module = module ?? throw new ArgumentNullException(nameof(module));
+        Diagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
         Invalid = invalid;
     }
 
+    /// <summary>Profile-legal IR (may still carry diagnostics).</summary>
     public IrModule Module { get; }
 
+    /// <summary>Diagnostics emitted by the legalizer (includes input diagnostics).</summary>
+    public IReadOnlyList<IrDiagnostic> Diagnostics { get; }
+
+    /// <summary>True when legalization failed and output is marked invalid.</summary>
     public bool Invalid { get; }
 }
 
@@ -36,6 +44,7 @@ public sealed class LegalizationPipeline
         PropertyNameCaseInsensitive = true
     };
 
+    /// <summary>Entry point for class-library callers.</summary>
     public LegalizeResult Legalize(LegalizeRequest request)
     {
         if (request is null)
@@ -45,9 +54,14 @@ public sealed class LegalizationPipeline
 
         // TODO: implement real legalization logic.
         var module = ApplyProfileOverride(request.Module, request.ProfileOverride);
-        return new LegalizeResult(module);
+
+        var diagnostics = module.Diagnostics ?? Array.Empty<IrDiagnostic>();
+        var invalid = diagnostics.Any(d => string.Equals(d.Severity, "Error", StringComparison.OrdinalIgnoreCase));
+
+        return new LegalizeResult(module, diagnostics, invalid);
     }
 
+    /// <summary>Convenience helper to parse IR JSON into a module using openfxc-ir types.</summary>
     public IrModule ParseModule(string json)
     {
         if (string.IsNullOrWhiteSpace(json))

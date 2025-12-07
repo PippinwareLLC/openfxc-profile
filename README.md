@@ -7,6 +7,9 @@ Legalize backend-agnostic IR (from `openfxc-ir optimize`) against shader model r
 - Output: profile-legal IR JSON (SM2-SM5), preserving IR invariants and diagnostics.
 - CLI: `openfxc-profile legalize --profile <name> < input.ir.json > output.ir.legal.json` (exit 0 on success with diagnostics allowed, 1 on internal error).
 
+## Origin
+openfxc-profile is a distilled standalone CLI tool peeled from the larger (currently private) OpenFXC project.
+
 ## Architecture
 - Core functionality in a class library; CLI is a thin wrapper.
 - Unit tests exercise the class library directly (not the CLI).

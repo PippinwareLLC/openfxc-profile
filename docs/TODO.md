@@ -5,9 +5,9 @@
 - [x] Wire JSON parsing, diagnostics passthrough, and basic logging.
 
 ## M1: Class library API
-- [ ] Implement legalizer as a class library surface; keep CLI as a thin wrapper.
-- [ ] Define request/response types (profile override, diagnostics list, `invalid` flag).
-- [ ] Expose helper hooks to call submodule libraries (`openfxc-ir`, `openfxc-sem`, `openfxc-hlsl`) directly.
+- [x] Implement legalizer as a class library surface; keep CLI as a thin wrapper.
+- [x] Define request/response types (profile override, diagnostics list, `invalid` flag).
+- [x] Expose helper hooks to call submodule libraries (`openfxc-ir`, `openfxc-sem`, `openfxc-hlsl`) directly.
 
 ## M2: Capability table
 - [ ] Encode canonical capability table (SM2-SM5) as shared data.
