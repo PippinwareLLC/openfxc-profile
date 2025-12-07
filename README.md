@@ -52,6 +52,9 @@ openfxc-profile is a distilled standalone CLI tool peeled from the larger (curre
 - End-to-end example: `openfxc-hlsl parse file.hlsl | openfxc-sem analyze --profile ps_2_0 | openfxc-ir lower | openfxc-ir optimize | openfxc-profile legalize --profile ps_2_0 > file.ir.legal.json`
 - Tests: `dotnet test` (unit tests should target the class library directly).
 
+## Samples & Attribution
+- `samples/dxsdk` contains DirectX SDK `.hlsl`/`.fx` sample content (Microsoft) used for coverage testing. Attribution and licenses remain with their respective owners; content is included only for testing compatibility.
+
 ## Docs
 - TDD: `docs/TDD.md`
 - Agents checklist: `docs/agents.md`
