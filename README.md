@@ -52,3 +52,5 @@ Legalize backend-agnostic IR (from `openfxc-ir optimize`) against shader model r
 ## Docs
 - TDD: `docs/TDD.md`
 - Agents checklist: `docs/agents.md`
+- TODO: `docs/TODO.md`
+- Milestones: `docs/MILESTONES.md`
