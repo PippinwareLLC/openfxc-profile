@@ -65,6 +65,13 @@ public sealed class LegalizationPipeline
         else
         {
             LegalizationValidator.Validate(module, profile, diagnostics);
+            var stage = module.EntryPoint?.Stage ?? "unknown";
+            var rewriteResult = LegalizationRewriter.Rewrite(module, profile, stage, diagnostics);
+            module = rewriteResult.Module;
+            if (rewriteResult.Invalid)
+            {
+                diagnostics.Add(IrDiagnostic.Error("Unsupported operations removed during legalization.", "legalize"));
+            }
         }
 
         module = module with { Diagnostics = diagnostics };

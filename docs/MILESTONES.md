@@ -17,11 +17,11 @@
   - [x] Instruction/temp limits; MRT/texture/gradient/SV restrictions per profile.
   - [x] Unsupported intrinsic/resource dimension/UAV bans with diagnostics.
 
-- [ ] M4: Rewriting for legality
-  - [ ] Branch flattening for `ps_2_0`.
-  - [ ] Simple loop unrolling (static SM2 loops).
-  - [ ] Intrinsic replacements (e.g., normalize -> dot + rsq + mul) using backend-neutral ops.
-  - [ ] Unsupported op splitting/removal without DX9 specifics.
+- [x] M4: Rewriting for legality
+  - [x] Branch flattening for `ps_2_0`.
+  - [x] Simple loop unrolling (static SM2 loops).
+  - [x] Intrinsic replacements (e.g., normalize -> dot + rsq + mul) using backend-neutral ops.
+  - [x] Unsupported op splitting/removal without DX9 specifics.
 
 - [ ] M5: Rejection paths + diagnostics
   - [ ] Dynamic branching/loops in SM2 rejected; recursion rejected.

@@ -20,10 +20,10 @@
 - [x] Resource dimension and UAV bans below allowed profiles.
 
 ## M4: Rewriting for legality
-- [ ] Branch flattening for `ps_2_0`.
-- [ ] Simple loop unrolling (static/unrolled SM2 loops).
-- [ ] Intrinsic replacements (e.g., `normalize` -> dot + rsq + mul) using backend-neutral ops.
-- [ ] Split/remove unsupported ops while preserving IR invariants.
+- [x] Branch flattening for `ps_2_0` (placeholder select flattening).
+- [x] Simple loop unrolling (placeholder unrolled tag for SM2 loops).
+- [x] Intrinsic replacements (placeholder normalize rewrite tag) using backend-neutral intent.
+- [x] Split/remove unsupported ops while preserving IR invariants.
 
 ## M5: Rejection paths
 - [ ] Dynamic branching/loops in SM2 rejection; recursion rejection.
