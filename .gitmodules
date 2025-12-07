@@ -1,0 +1,3 @@
+[submodule "openfxc-ir"]
+	path = openfxc-ir
+	url = https://github.com/PippinwareLLC/openfxc-ir.git
