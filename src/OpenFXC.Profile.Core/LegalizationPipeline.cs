@@ -58,10 +58,16 @@ public sealed class LegalizationPipeline
         var diagnostics = module.Diagnostics?.ToList() ?? new List<IrDiagnostic>();
 
         var normalizedProfile = CapabilityTable.NormalizeProfile(module.Profile);
-        if (normalizedProfile is null || !CapabilityTable.TryGetProfile(normalizedProfile, out _))
+        if (normalizedProfile is null || !CapabilityTable.TryGetProfile(normalizedProfile, out var profile) || profile is null)
         {
             diagnostics.Add(IrDiagnostic.Error($"Unknown or missing profile '{module.Profile ?? "<none>"}' for legalization.", "legalize"));
         }
+        else
+        {
+            LegalizationValidator.Validate(module, profile, diagnostics);
+        }
+
+        module = module with { Diagnostics = diagnostics };
 
         var invalid = diagnostics.Any(d => string.Equals(d.Severity, "Error", StringComparison.OrdinalIgnoreCase));
 
