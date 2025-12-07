@@ -10,8 +10,8 @@
 - [x] Expose helper hooks to call submodule libraries (`openfxc-ir`, `openfxc-sem`, `openfxc-hlsl`) directly.
 
 ## M2: Capability table
-- [ ] Encode canonical capability table (SM2-SM5) as shared data.
-- [ ] Drive validation and rewrite decisions from that table; keep tests in sync.
+- [x] Encode canonical capability table (SM2-SM5) as shared data.
+- [x] Drive validation and rewrite decisions from that table; keep tests in sync.
 
 ## M3: Validation rules
 - [ ] Instruction slot and temp register limits per profile.

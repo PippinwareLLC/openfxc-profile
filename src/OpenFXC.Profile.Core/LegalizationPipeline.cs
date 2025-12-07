@@ -55,7 +55,14 @@ public sealed class LegalizationPipeline
         // TODO: implement real legalization logic.
         var module = ApplyProfileOverride(request.Module, request.ProfileOverride);
 
-        var diagnostics = module.Diagnostics ?? Array.Empty<IrDiagnostic>();
+        var diagnostics = module.Diagnostics?.ToList() ?? new List<IrDiagnostic>();
+
+        var normalizedProfile = CapabilityTable.NormalizeProfile(module.Profile);
+        if (normalizedProfile is null || !CapabilityTable.TryGetProfile(normalizedProfile, out _))
+        {
+            diagnostics.Add(IrDiagnostic.Error($"Unknown or missing profile '{module.Profile ?? "<none>"}' for legalization.", "legalize"));
+        }
+
         var invalid = diagnostics.Any(d => string.Equals(d.Severity, "Error", StringComparison.OrdinalIgnoreCase));
 
         return new LegalizeResult(module, diagnostics, invalid);
