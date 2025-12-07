@@ -85,8 +85,8 @@ public class ProfileCorpusSweepTests
                 var semanticErrors = semantic.Diagnostics.Where(d => IsError(d.Severity)).ToList();
                 if (semanticErrors.Count > 0)
                 {
-                    // Skip files the semantic analyzer cannot handle (e.g., unsupported FX10 constructs).
-                    Console.WriteLine($"[PROFILE][SKIP-SEM] {file} [{candidate.Profile}:{candidate.Entry}] ({candidateTimer.ElapsedMilliseconds} ms)");
+                    failures.Add($"{file} [{candidate.Profile}:{candidate.Entry}] semantic diagnostics: {string.Join("; ", semanticErrors.Select(e => e.Message))}");
+                    Console.WriteLine($"[PROFILE][FAIL-SEM] {file} [{candidate.Profile}:{candidate.Entry}] {candidateTimer.ElapsedMilliseconds} ms");
                     continue;
                 }
 

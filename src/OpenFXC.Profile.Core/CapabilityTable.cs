@@ -20,6 +20,20 @@ public static class CapabilityTable
     private static readonly IReadOnlyDictionary<string, CapabilityProfile> Profiles =
         new Dictionary<string, CapabilityProfile>(StringComparer.OrdinalIgnoreCase)
         {
+            ["sm1"] = new(
+                Band: "sm1",
+                DynamicBranching: false,
+                Loops: false,
+                Predication: false,
+                TextureInstructionLimit: 8,
+                GradientOps: false,
+                VertexTextureFetch: false,
+                TempRegisters: 8,
+                InstructionSlots: 64,
+                MrtLimit: 0,
+                SvSemantics: false,
+                SamplerTypes: "legacy-only",
+                TypedUavs: false),
             ["sm2"] = new(
                 Band: "sm2",
                 DynamicBranching: false,
@@ -89,6 +103,11 @@ public static class CapabilityTable
         }
 
         var p = profile.Trim().ToLowerInvariant();
+
+        if (p.StartsWith("sm1") || p.Contains("_1_"))
+        {
+            return "sm1";
+        }
 
         if (p.StartsWith("sm2") || p.Contains("_2_"))
         {
